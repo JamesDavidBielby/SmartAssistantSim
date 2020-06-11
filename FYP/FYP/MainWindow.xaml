@@ -1,0 +1,100 @@
+﻿<Window x:Class="FYP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FYP"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="Simulation"
+        Height="720" 
+        Width="1280"
+        ResizeMode="NoResize"
+        >
+    <Grid>
+        <GroupBox x:Name="OutputGroupBox" Header="Output" Height="189" Margin="10,490,10,0" VerticalAlignment="Top">
+            <Grid HorizontalAlignment="Left" Height="179" Margin="0,0,-2,-12" VerticalAlignment="Top" Width="1242">
+                <ScrollViewer>
+                    <TextBox x:Name="OutputText" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="153" Margin="10,10,6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0"/>
+                </ScrollViewer>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="enviroGroupBox" Header="Environment Conditions" HorizontalAlignment="Left" Height="475" Margin="10,10,0,0" VerticalAlignment="Top" Width="620">
+            <Grid x:Name="enviroGrid" Margin="10,10,10,10">
+                <Label x:Name="Light1StateLabel" Content="Light 1 State: OFF" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" ToolTip="State:"/>
+                <Label x:Name="Light2StateLabel" Content="Light 2 State: OFF" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="Light3StateLabel" Content="Light 3 State: OFF" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="ambientTempLabel" Content="Ambient Temperature: " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="onlineTempLabel" Content="Online Temp: " HorizontalAlignment="Left" Margin="179,10,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="updateOTemp" Content="update : ONLINE" HorizontalAlignment="Left" Margin="468,10,0,0" VerticalAlignment="Top" Width="110" Click="updateOTemp_Click"/>
+                <Label x:Name="TimeLabel" Content="Time" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" />
+                <CheckBox x:Name="simulatedMovementCheckBox" Content="Simulate Movement" HorizontalAlignment="Left" Margin="101,171,0,0" VerticalAlignment="Top"  Checked="simulatedMovementCheckBox_Checked" Unchecked="simulatedMovementCheckBox_Unchecked"/>
+                <CheckBox x:Name="sensorMovementCheckBox" Content="Sensor Movement" HorizontalAlignment="Left" Margin="247,171,0,0" VerticalAlignment="Top" IsEnabled="False" />
+                <Button x:Name="updateLTemp" Content="update : LOCAL" HorizontalAlignment="Left" Margin="353,10,0,0" VerticalAlignment="Top" Width="110" Click="updateLTemp_Click" IsEnabled="False"/>
+                <Label x:Name="lightControlLabel" Content="Light Control:" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="movementLabel" Content="Movement: False" HorizontalAlignment="Left" Margin="410,165,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="controlLabel" Content="Temperature Control:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+
+
+
+
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="commandGroupBox" Header="Set Values" Height="241" Margin="643,10,10,0" VerticalAlignment="Top">
+            <Grid x:Name="commandGrid" Margin="10,10,10,10">
+                <Button x:Name="Light1On" Content="Light 1 On" Margin="10,58,0,0" Click="Light1On_Click" HorizontalAlignment="Left" Width="78" Height="20" VerticalAlignment="Top"/>
+                <Slider x:Name="TempSlider" HorizontalAlignment="Left" Margin="137,20,0,0" VerticalAlignment="Top" Maximum="40" Width="200" ValueChanged="TempSlider_ValueChanged" SmallChange="1" LargeChange="5" TickFrequency="2" Minimum="-10"/>
+                <Label x:Name="TempLabel" Content="Target Temperature:" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="Light1Off" Content="Light 1 Off" Margin="10,83,0,0" VerticalAlignment="Top" Click="Light1Off_Click" HorizontalAlignment="Left" Width="78"/>
+                <Label x:Name="TempVal" Content="" HorizontalAlignment="Left" Margin="346,15,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="Light2On" Content="Light 2 On" Margin="110,58,0,0" Click="Light2On_Click" HorizontalAlignment="Left" Width="78" Height="20" VerticalAlignment="Top"/>
+                <Button x:Name="Light2Off" Content="Light 2 Off" Margin="110,83,0,0" VerticalAlignment="Top" Click="Light2Off_Click" HorizontalAlignment="Left" Width="78"/>
+                <Button x:Name="TempSet" Content="SET" HorizontalAlignment="Left" Margin="438,18,0,0" VerticalAlignment="Top" Width="75" Click="TempSet_Click"/>
+                <Button x:Name="Light3On" Content="Light 3 On" Margin="210,58,0,121" Click="Light3On_Click" HorizontalAlignment="Left" Width="78"/>
+                <Button x:Name="Light3Off" Content="Light 3 Off" Margin="210,83,0,96" Click="Light3Off_Click" HorizontalAlignment="Left" Width="78"/>
+                <Button x:Name="LightAOn" Content="Lights On" Margin="310,58,0,121" Click="LightsOn_Click" HorizontalAlignment="Left" Width="78"/>
+                <Button x:Name="LightAOff" Content="Lights Off" Margin="310,83,0,96" Click="LightsOff_Click" HorizontalAlignment="Left" Width="78"/>
+                <GroupBox x:Name="groupBox" Header="Temperature Threshold" Height="78" Margin="10,108,10,0" VerticalAlignment="Top">
+                    <Grid Margin="10,10,10,10">
+                        <Label x:Name="lowerBoundLabel" Content="Lower: " HorizontalAlignment="Left" Margin="5,4,0,0" Height="27" VerticalAlignment="Top"/>
+                        <Label x:Name="upperBoundLabel" Content="Upper: " HorizontalAlignment="Left" Margin="217,4,0,0" Height="27" VerticalAlignment="Top"/>
+                        <Button x:Name="setBoundsButton" Content="Set" HorizontalAlignment="Left" Margin="426,7,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                        <TextBox x:Name="lowerBoundTB" HorizontalAlignment="Left" Height="23" Margin="58,8,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="120" />
+                        <TextBox x:Name="upperBoundTB" HorizontalAlignment="Left" Height="23" Margin="270,8,0,0" TextWrapping="Wrap" Text="40" VerticalAlignment="Top" Width="120" />
+                    </Grid>
+                </GroupBox>
+                <CheckBox x:Name="autoTempCheck" Content="Auto" HorizontalAlignment="Left" Margin="518,20,0,0" VerticalAlignment="Top" Checked="autoTempCheck_Checked"/>
+                <Label x:Name="delayLabel" Content="Light Delay" HorizontalAlignment="Left" Margin="444,55,0,0" VerticalAlignment="Top" ToolTip="This is how long until the light switches off after no movement has been regestered " RenderTransformOrigin="1.522,0.769"/>
+                <ComboBox x:Name="delayComboBox" HorizontalAlignment="Left" Margin="523,57,0,0" VerticalAlignment="Top" Width="41" SelectedIndex="1" SelectionChanged="delayComboBox_SelectionChanged">
+                    <ComboBoxItem>0</ComboBoxItem>
+                    <ComboBoxItem>5</ComboBoxItem>
+                    <ComboBoxItem>10</ComboBoxItem>
+                    <ComboBoxItem>15</ComboBoxItem>
+                    <ComboBoxItem>20</ComboBoxItem>
+                    <ComboBoxItem>30</ComboBoxItem>
+                    <ComboBoxItem>60</ComboBoxItem>
+                    <ComboBoxItem>Always on</ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="tempOffBtn" Content="OFF" HorizontalAlignment="Left" Margin="373,18,0,0" VerticalAlignment="Top" Width="50" Click="tempOffBtn_Click"/>
+            </Grid>
+
+        </GroupBox>
+        <GroupBox Header="Connections" HorizontalAlignment="Left" Height="229" Margin="643,256,0,0" VerticalAlignment="Top" Width="621">
+            <Grid HorizontalAlignment="Left" Height="219" VerticalAlignment="Top" Width="611" Margin="0,0,-2,-12">
+                <Label x:Name="connectLabel" Content="Arduino: Disconnected " HorizontalAlignment="Left" Margin="0,7,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="connectButton" Content="Connect" HorizontalAlignment="Left" Margin="138,13,0,0" VerticalAlignment="Top" Width="75" Click="connectButton_Click"/>
+                <Label x:Name="COMLabel" Content="COM:" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" />
+                <ComboBox x:Name="COMComboBox" HorizontalAlignment="Left" Margin="58,38,0,0" VerticalAlignment="Top" Width="75" SelectedIndex="0" >
+                    
+                    <ComboBoxItem>COM3</ComboBoxItem>
+                    <ComboBoxItem>COM4</ComboBoxItem>
+                    <ComboBoxItem>COM5</ComboBoxItem>
+                    <ComboBoxItem>COM6</ComboBoxItem>
+                    <ComboBoxItem>COM7</ComboBoxItem>
+                </ComboBox>
+                <Label x:Name="connectionLabel" Content="Internet: Disconnected" HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>
